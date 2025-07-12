@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turf Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-futbol me-2"></i>
+                Turf Management System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home" onclick="showSection('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#booking" onclick="showSection('booking')">Book Turf</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#shop" onclick="showSection('shop')">Equipment Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bookings" onclick="showSection('bookings')">My Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#orders" onclick="showSection('orders')">My Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Home Section -->
+        <div id="home" class="section">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="display-4 text-success">Welcome to Turf Management System</h1>
+                    <p class="lead">Book your favorite sports turf and get the best equipment for your game!</p>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                                    <h5 class="card-title">Book Turf</h5>
+                                    <p class="card-text">Reserve your preferred turf for your game.</p>
+                                    <button class="btn btn-success" onclick="showSection('booking')">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-shopping-cart fa-3x text-primary mb-3"></i>
+                                    <h5 class="card-title">Equipment Shop</h5>
+                                    <p class="card-text">Get sports equipment and energy drinks.</p>
+                                    <button class="btn btn-primary" onclick="showSection('shop')">Shop Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Real-time Updates</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="realtime-updates">
+                                <p class="text-muted">Loading updates...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Section -->
+        <div id="booking" class="section" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-calendar-plus me-2"></i>Book Your Turf</h2>
+            
+            <!-- Turf Selection -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Available Turfs</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="turfs-container" class="row">
+                                <!-- Turfs will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Booking Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="booking-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="customerName" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="customerName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="customerEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="customerEmail" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="customerPhone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="customerPhone" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="selectedTurf" class="form-label">Selected Turf</label>
+                                        <input type="text" class="form-control" id="selectedTurf" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="startTime" class="form-label">Start Time</label>
+                                        <input type="datetime-local" class="form-control" id="startTime" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="hours" class="form-label">Hours</label>
+                                        <select class="form-select" id="hours" required>
+                                            <option value="">Select hours</option>
+                                            <option value="1">1 Hour</option>
+                                            <option value="2">2 Hours</option>
+                                            <option value="3">3 Hours</option>
+                                            <option value="4">4 Hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="totalAmount" class="form-label">Total Amount</label>
+                                    <input type="text" class="form-control" id="totalAmount" readonly>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-check me-2"></i>Confirm Booking
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Booking Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="booking-summary">
+                                <p class="text-muted">Select a turf to see booking details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Section -->
+        <div id="shop" class="section" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-shopping-bag me-2"></i>Equipment Shop</h2>
+            
+            <!-- Category Filter -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary active" onclick="filterEquipment('all')">All</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="filterEquipment('SPORTING_EQUIPMENT')">Sports Equipment</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="filterEquipment('ENERGY_DRINKS')">Energy Drinks</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="filterEquipment('ACCESSORIES')">Accessories</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipment Grid -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row" id="equipment-container">
+                        <!-- Equipment items will be loaded here -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Shopping Cart</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="cart-items">
+                                <p class="text-muted">Your cart is empty</p>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <strong>Total:</strong>
+                                <span id="cart-total">$0.00</span>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3" onclick="checkout()">
+                                <i class="fas fa-credit-card me-2"></i>Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Bookings Section -->
+        <div id="bookings" class="section" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-list me-2"></i>My Bookings</h2>
+            <div id="bookings-container">
+                <!-- Bookings will be loaded here -->
+            </div>
+        </div>
+
+        <!-- My Orders Section -->
+        <div id="orders" class="section" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-box me-2"></i>My Orders</h2>
+            <div id="orders-container">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkout-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="orderName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="orderName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="orderEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="orderEmail" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="orderPhone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="orderPhone" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="orderAddress" class="form-label">Delivery Address</label>
+                                <input type="text" class="form-control" id="orderAddress" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Order Summary</label>
+                            <div id="order-summary">
+                                <!-- Order summary will be displayed here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="placeOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <p id="success-message">Operation completed successfully!</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
